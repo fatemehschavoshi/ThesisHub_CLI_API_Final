@@ -10,3 +10,4 @@ __pycache__/
 data/_bak/
 files/reports/*.pdf
 tmp_demo_files/
+data/*.lock
