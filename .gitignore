@@ -1,0 +1,12 @@
+﻿# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Secrets & env
+.env
+
+# Backups & generated
+data/_bak/
+files/reports/*.pdf
+tmp_demo_files/

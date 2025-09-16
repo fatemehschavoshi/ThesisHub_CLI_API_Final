@@ -1,0 +1,131 @@
+[
+  {
+    "id": "b2a1f8d4-3e92-4e4d-bbb9-12a1e58f5a01",
+    "ts": "2025-08-28T12:30:00.000Z",
+    "event": "student_registered",
+    "level": "success",
+    "payload": {
+      "student": "S1001"
+    },
+    "source": "cli",
+    "actor": "admin",
+    "topic": "auth",
+    "tags": [
+      "register",
+      "student"
+    ],
+    "audience": "internal",
+    "correlation_id": "flow-reg-001",
+    "dedupe_key": "S1001|register",
+    "dedupe_window_sec": 300
+  },
+  {
+    "id": "cd41fbc1-2ad2-4f45-8e9e-0afc99f50f17",
+    "ts": "2025-08-28T12:35:00.000Z",
+    "event": "thesis_requested",
+    "level": "info",
+    "payload": {
+      "student": "S1001",
+      "course": "C3001"
+    },
+    "source": "cli",
+    "actor": "S1001",
+    "topic": "thesis",
+    "tags": [
+      "request",
+      "thesis"
+    ],
+    "audience": "professor",
+    "correlation_id": "flow-req-001",
+    "dedupe_key": "S1001|C3001|request",
+    "dedupe_window_sec": 60
+  },
+  {
+    "id": "f09aa9bb-45df-4374-88c6-9b8d3f0f41cd",
+    "ts": "2025-08-28T12:40:00.000Z",
+    "event": "approved",
+    "level": "success",
+    "payload": {
+      "student": "S1001",
+      "course": "C3001",
+      "supervisor": "T2001"
+    },
+    "source": "cli",
+    "actor": "T2001",
+    "topic": "thesis",
+    "tags": [
+      "approval",
+      "thesis"
+    ],
+    "audience": "student",
+    "correlation_id": "flow-req-001",
+    "dedupe_key": "S1001|C3001|approved",
+    "dedupe_window_sec": 60
+  },
+  {
+    "id": "32ce8eee-3e0a-4234-9f9a-9e03824dd698",
+    "ts": "2025-09-16T13:07:33.525Z",
+    "event": "finalized",
+    "level": "info",
+    "payload": {
+      "student": "S9001",
+      "course": "C9001",
+      "score": 18.17
+    }
+  },
+  {
+    "id": "cfabeef8-82f5-48df-a9c7-0029c3c13b95",
+    "ts": "2025-09-16T14:11:54.960Z",
+    "event": "finalized",
+    "level": "info",
+    "payload": {
+      "student": "S9001",
+      "course": "C9001",
+      "score": 18.17
+    }
+  },
+  {
+    "id": "dacf253f-7de4-46d2-9b4e-08d6b596eb42",
+    "ts": "2025-09-16T14:41:00.660Z",
+    "event": "finalized",
+    "level": "info",
+    "payload": {
+      "student": "S9001",
+      "course": "C9001",
+      "score": 18.17
+    }
+  },
+  {
+    "id": "685429c2-6f5c-4b68-90d3-d8809ad60d72",
+    "ts": "2025-09-16T14:44:48.310Z",
+    "event": "finalized",
+    "level": "info",
+    "payload": {
+      "student": "S9001",
+      "course": "C9001",
+      "score": 18.17
+    }
+  },
+  {
+    "id": "2001826e-c79b-4aa2-95ca-21f25c2d806c",
+    "ts": "2025-09-16T16:07:19.409Z",
+    "event": "finalized",
+    "level": "info",
+    "payload": {
+      "student": "S9001",
+      "course": "C9001",
+      "score": 18.17
+    }
+  },
+  {
+    "id": "9949248d-2329-4d44-bc6b-08d380be8018",
+    "ts": "2025-09-16T18:08:55.960Z",
+    "event": "finalized",
+    "level": "info",
+    "payload": {
+      "student": "S9001",
+      "course": "C9001",
+      "score": 18.17
+    }
+  }
+]

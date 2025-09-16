@@ -1,0 +1,72 @@
+[
+  {
+    "course_title": "Thesis (AI)",
+    "course_id": "C3001",
+    "teacher_code": "T2001",
+    "year": 1404,
+    "semester": "اول",
+    "capacity": 2,
+    "resources": [
+      "Deep Learning",
+      "NLP"
+    ],
+    "sessions": 16,
+    "units": 6,
+    "type": "thesis",
+    "description": "پایان‌نامه در حوزه هوش مصنوعی با تمرکز بر Deep Learning و NLP.",
+    "status": "active",
+    "created_at": "2025-08-01T10:00:00Z"
+  },
+  {
+    "course_title": "Thesis (Software)",
+    "course_id": "C3002",
+    "teacher_code": "T2002",
+    "year": 1404,
+    "semester": "دوم",
+    "capacity": 1,
+    "resources": [
+      "Microservices",
+      "Testing"
+    ],
+    "sessions": 16,
+    "units": 6,
+    "type": "thesis",
+    "description": "پایان‌نامه در حوزه نرم‌افزار با محوریت Microservices و تست نرم‌افزار.",
+    "status": "active",
+    "created_at": "2025-08-01T10:15:00Z"
+  },
+  {
+    "course_title": "Thesis (Data Science)",
+    "course_id": "C3003",
+    "teacher_code": "T2003",
+    "year": 1404,
+    "semester": "اول",
+    "capacity": 3,
+    "resources": [
+      "Statistics",
+      "Pandas"
+    ],
+    "sessions": 16,
+    "units": 6,
+    "type": "thesis",
+    "description": "پایان‌نامه در حوزه علم داده شامل آمار و ابزارهای پایتون مانند Pandas.",
+    "status": "active",
+    "created_at": "2025-08-01T10:30:00Z"
+  },
+  {
+    "course_title": "Thesis (Demo)",
+    "course_id": "C9001",
+    "teacher_code": "T9101",
+    "year": 1404,
+    "semester": "اول",
+    "capacity": 1,
+    "resources": [
+      "demo"
+    ],
+    "sessions": 16,
+    "units": 6,
+    "type": "thesis",
+    "status": "active",
+    "created_at": "2025-09-16T13:07:31Z"
+  }
+]

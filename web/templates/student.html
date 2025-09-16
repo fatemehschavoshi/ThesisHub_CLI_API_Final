@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}داشبورد دانشجو | ThesisHub{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Table fixes for RTL and small screens */
+  .table td, .table th { vertical-align: middle; }
+  .section-title { display:flex; align-items:center; gap:.5rem; }
+  .help { color:#6c757d; font-size:.875rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h5 class="mb-0 section-title">
+    داشبورد دانشجو
+    <span class="badge text-bg-primary">{{ student.student_code }}</span>
+  </h5>
+  <span class="text-muted small">{{ student.name }}</span>
+</div>
+
+<!-- Requests table -->
+<div class="card p-3 mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h6 class="mb-0">درخواست‌های پایان‌نامه من</h6>
+    <span class="help">این بخش فقط وضعیت را نمایش می‌دهد.</span>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>شناسه درس</th>
+          <th>وضعیت</th>
+          <th>ثبت</th>
+          <th>تایید</th>
+          <th>تاریخ دفاع</th>
+          <th>فایل‌ها</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for t in thesis %}
+        <tr>
+          <td><code>{{ t.course_id }}</code></td>
+          <td>
+            {% set s = (t.status or '') %}
+            {% if s == 'pending' %}
+              <span class="badge text-bg-warning">در انتظار</span>
+            {% elif s == 'approved' %}
+              <span class="badge text-bg-success">تایید شده</span>
+            {% elif s == 'defense' %}
+              <span class="badge text-bg-info">در فرآیند دفاع</span>
+            {% elif s == 'rejected' %}
+              <span class="badge text-bg-danger">رد شده</span>
+            {% else %}
+              <span class="badge text-bg-secondary">{{ s or '-' }}</span>
+            {% endif %}
+          </td>
+          <td>{{ t.request_date or "-" }}</td>
+          <td>{{ t.approval_date or "-" }}</td>
+          <td>{{ t.defense_date or "-" }}</td>
+          <td>
+            {% if t.files and t.files.pdf %}
+              <a class="btn btn-sm btn-outline-primary" href="/{{ t.files.pdf }}" target="_blank">PDF</a>
+            {% else %}-{% endif %}
+            {% if t.files and t.files.cover %}
+              <a class="btn btn-sm btn-outline-secondary ms-1" href="/{{ t.files.cover }}" target="_blank">کاور</a>
+            {% endif %}
+            {% if t.files and t.files.last %}
+              <a class="btn btn-sm btn-outline-secondary ms-1" href="/{{ t.files.last }}" target="_blank">صفحه آخر</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6" class="text-center text-muted">هنوز درخواستی ثبت نکرده‌اید.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Metadata form -->
+<div class="card p-3 mb-4">
+  <h6 class="mb-2">ثبت/ویرایش متادیتا</h6>
+  <p class="help mb-3">عنوان، چکیده و کلمات کلیدی پایان‌نامه برای جستجو در آرشیو ضروری‌اند.</p>
+
+  <form class="needs-validation" method="post" action="{{ url_for('student_metadata') }}" novalidate>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">شناسه درس</label>
+        <input name="course_id" class="form-control" required placeholder="مثال: C3001">
+        <div class="invalid-feedback">شناسه درس الزامی است.</div>
+      </div>
+      <div class="col-md-8">
+        <label class="form-label">عنوان پایان‌نامه</label>
+        <input name="title" class="form-control" placeholder="مثال: کاربرد DL در NLP">
+      </div>
+      <div class="col-12">
+        <label class="form-label">چکیده</label>
+        <textarea name="abstract" rows="4" class="form-control" placeholder="خلاصه‌ای از مسئله، روش، نتایج و نوآوری‌ها"></textarea>
+      </div>
+      <div class="col-12">
+        <label class="form-label">کلمات کلیدی</label>
+        <input name="keywords" class="form-control" placeholder="مثال: Deep Learning, NLP, Transformers">
+        <div class="form-text">کلمات را با کاما «,» جدا کنید.</div>
+      </div>
+      <div class="col-12 d-grid d-md-inline">
+        <button class="btn btn-primary">ثبت متادیتا</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Defense request form -->
+<div class="card p-3 mb-4">
+  <h6 class="mb-2">درخواست دفاع (پس از گذشت ۳ ماه از تایید)</h6>
+  <p class="help mb-3">
+    فایل PDF نهایی و تصاویر صفحه اول/آخر را بارگذاری کنید. پس از بررسی استاد راهنما، تاریخ دفاع و داوران تعیین خواهند شد.
+  </p>
+
+  <form class="needs-validation" method="post" enctype="multipart/form-data"
+        action="{{ url_for('student_defense_request') }}" novalidate id="defenseForm">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">شناسه درس</label>
+        <input name="course_id" class="form-control" required placeholder="C3001">
+        <div class="invalid-feedback">شناسه درس الزامی است.</div>
+      </div>
+      <div class="col-md-8"></div>
+
+      <div class="col-md-4">
+        <label class="form-label">PDF پایان‌نامه</label>
+        <input type="file" name="pdf" class="form-control" accept=".pdf" required>
+        <div class="form-text">فقط PDF تا حداکثر 50MB</div>
+        <div class="invalid-feedback">فایل PDF الزامی است.</div>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">تصویر صفحه اول</label>
+        <input type="file" name="cover" class="form-control" accept=".jpg,.jpeg" required>
+        <div class="form-text">فرمت مجاز: JPG/JPEG (حداکثر 10MB)</div>
+        <div class="invalid-feedback">تصویر صفحه اول الزامی است.</div>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">تصویر صفحه آخر</label>
+        <input type="file" name="last" class="form-control" accept=".jpg,.jpeg" required>
+        <div class="form-text">فرمت مجاز: JPG/JPEG (حداکثر 10MB)</div>
+        <div class="invalid-feedback">تصویر صفحه آخر الزامی است.</div>
+      </div>
+
+      <div class="col-12 d-grid d-md-inline">
+        <button class="btn btn-success">ارسال درخواست دفاع</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- AI assisted metadata -->
+<div class="card p-3">
+  <h6 class="mb-2">متادیتای خودکار با هوش مصنوعی</h6>
+  <p class="help mb-3">اگر فایل PDF قبلاً بارگذاری شده باشد، سیستم می‌تواند چکیده و کلمات کلیدی را به‌صورت خودکار استخراج کند.</p>
+
+  <form class="needs-validation" method="post" action="{{ url_for('student_auto_metadata') }}" novalidate>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">شناسه درس</label>
+        <input name="course_id" class="form-control" required placeholder="C3001">
+        <div class="invalid-feedback">شناسه درس الزامی است.</div>
+      </div>
+      <div class="col-12 d-grid d-md-inline">
+        <button class="btn btn-outline-primary">تولید خودکار چکیده/کلیدواژه</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Bootstrap validation helper (client-side)
+  (function () {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault(); event.stopPropagation();
+          const firstInvalid = form.querySelector(':invalid');
+          if (firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+
+  // Client-side file size checks for defense request
+  (function () {
+    const form = document.getElementById('defenseForm');
+    if (!form) return;
+    const MAX_PDF = 50 * 1024 * 1024;   // 50MB
+    const MAX_IMG = 10 * 1024 * 1024;   // 10MB
+    form.addEventListener('submit', function(e){
+      const pdf = form.querySelector('input[name="pdf"]')?.files?.[0];
+      const cover = form.querySelector('input[name="cover"]')?.files?.[0];
+      const last = form.querySelector('input[name="last"]')?.files?.[0];
+      let msg = [];
+      if (pdf && pdf.size > MAX_PDF) msg.push('حجم PDF بیش از ۵۰ مگابایت است.');
+      if (cover && cover.size > MAX_IMG) msg.push('حجم تصویر صفحه اول بیش از ۱۰ مگابایت است.');
+      if (last && last.size > MAX_IMG) msg.push('حجم تصویر صفحه آخر بیش از ۱۰ مگابایت است.');
+      if (msg.length) { e.preventDefault(); alert(msg.join('\n')); }
+    });
+  })();
+</script>
+{% endblock %}

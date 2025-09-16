@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block title %}پنل ادمین | ThesisHub{% endblock %}
+
+{% block extra_css %}
+<style>
+  .section-title { margin-top:1.5rem; margin-bottom:.75rem; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  pre.json { background:#0f172a; color:#e2e8f0; border-radius:.75rem; padding:1rem; overflow:auto; }
+  .card-action .btn { min-width: 180px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h5 class="mb-0">پنل نگهداری ادمین</h5>
+  <form method="get" action="{{ url_for('logout') }}">
+    <button class="btn btn-outline-danger btn-sm">خروج</button>
+  </form>
+</div>
+
+<!-- Quick stats -->
+{% if stats %}
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="card p-3 text-center">
+      <div class="small text-muted">دانشجو</div>
+      <div class="fs-5 fw-semibold">{{ stats.students }}</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card p-3 text-center">
+      <div class="small text-muted">استاد</div>
+      <div class="fs-5 fw-semibold">{{ stats.teachers }}</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card p-3 text-center">
+      <div class="small text-muted">درس</div>
+      <div class="fs-5 fw-semibold">{{ stats.courses }}</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card p-3 text-center">
+      <div class="small text-muted">آرشیو دفاع‌ها</div>
+      <div class="fs-5 fw-semibold">{{ stats.defended }}</div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Maintenance actions -->
+<h6 class="section-title">اقدامات نگهداری</h6>
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card p-3 card-action">
+      <h6 class="mb-2">Seed (دادهٔ نمونه)</h6>
+      <p class="text-muted small">در صورت خالی بودن، دانشجو/استاد/درس‌های نمونه درج می‌کند.</p>
+      <form method="post" action="{{ url_for('admin_seed') }}">
+        <button class="btn btn-success w-100">اجرای Seed</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-3 card-action">
+      <h6 class="mb-2">Health Check (سلامت دیتا)</h6>
+      <p class="text-muted small">یگانگی کلیدها و صحت روابط را بررسی می‌کند.</p>
+      <div class="d-grid gap-2 d-md-flex">
+        <button id="runHealth" class="btn btn-outline-secondary w-100">اجرای Health</button>
+        <a class="btn btn-outline-light border w-100" href="{{ url_for('admin_health') }}" target="_blank" rel="noopener">نمایش خام JSON</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Health results (AJAX) -->
+<div id="healthBox" class="d-none">
+  <h6 class="section-title mt-4">نتیجهٔ Health</h6>
+  <div id="healthAlert" class="alert" role="alert"></div>
+  <div class="card p-3 mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="small text-muted">Counts</div>
+        <div id="healthCounts" class="mono small text-muted">—</div>
+      </div>
+      <span id="healthBadge" class="badge">—</span>
+    </div>
+    <hr>
+    <div>
+      <div class="small text-muted mb-2">Issues</div>
+      <ul id="healthIssues" class="mb-0"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- Recent notifications -->
+<h6 class="section-title">اعلان‌های اخیر</h6>
+<div class="card p-3">
+  {% if notifications and notifications|length > 0 %}
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead>
+          <tr>
+            <th class="text-nowrap">زمان</th>
+            <th>رویداد</th>
+            <th>سطح</th>
+            <th>موضوع</th>
+            <th>اطلاعات</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for n in notifications %}
+            <tr>
+              <td class="small text-muted text-nowrap">{{ n.ts or n.get('ts') }}</td>
+              <td class="text-nowrap">{{ n.event or n.get('event') }}</td>
+              <td><span class="badge text-bg-{{ 'success' if (n.level or n.get('level'))=='success' else 'secondary' }}">{{ n.level or n.get('level') }}</span></td>
+              <td class="small text-muted">{{ n.topic or n.get('topic') }}</td>
+              <td class="small mono">
+                {% set payload = n.payload or n.get('payload') %}
+                {% if payload %}{{ payload | tojson }}{% else %}—{% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="text-muted">اعلان جدیدی ثبت نشده است.</div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function() {
+    const btn = document.getElementById('runHealth');
+    const box = document.getElementById('healthBox');
+    const badge = document.getElementById('healthBadge');
+    const alertBox = document.getElementById('healthAlert');
+    const countsEl = document.getElementById('healthCounts');
+    const issuesEl = document.getElementById('healthIssues');
+
+    async function runHealth() {
+      try {
+        const res = await fetch('{{ url_for("admin_health") }}', { method: 'GET', headers: { 'Accept': 'application/json' }});
+        const data = await res.json();
+        box.classList.remove('d-none');
+
+        // Status
+        if (data.ok) {
+          badge.className = 'badge text-bg-success';
+          badge.textContent = 'OK';
+          alertBox.className = 'alert alert-success';
+          alertBox.textContent = 'سلامت داده‌ها تایید شد.';
+        } else {
+          badge.className = 'badge text-bg-warning';
+          badge.textContent = 'ISSUES';
+          alertBox.className = 'alert alert-warning';
+          alertBox.textContent = 'مشکلاتی یافت شد. جزییات را بررسی کنید.';
+        }
+
+        // Counts (در حال حاضر روت فقط ok و errors می‌دهد؛ counts را خالی می‌گذاریم)
+        countsEl.textContent = data.counts ? JSON.stringify(data.counts) : '—';
+
+        // Issues
+        issuesEl.innerHTML = '';
+        const errs = data.errors || data.issues || [];
+        if (errs.length === 0) {
+          const li = document.createElement('li');
+          li.className = 'text-muted';
+          li.textContent = 'موردی گزارش نشد.';
+          issuesEl.appendChild(li);
+        } else {
+          errs.forEach(e => {
+            const li = document.createElement('li');
+            li.className = 'mono';
+            li.textContent = e;
+            issuesEl.appendChild(li);
+          });
+        }
+      } catch (e) {
+        box.classList.remove('d-none');
+        badge.className = 'badge text-bg-danger';
+        badge.textContent = 'ERROR';
+        alertBox.className = 'alert alert-danger';
+        alertBox.textContent = 'خطا در دریافت نتیجهٔ Health.';
+        countsEl.textContent = '—';
+        issuesEl.innerHTML = '<li class="mono">نامشخص</li>';
+      }
+    }
+
+    if (btn) btn.addEventListener('click', runHealth);
+  })();
+</script>
+{% endblock %}

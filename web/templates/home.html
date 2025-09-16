@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}خانه | ThesisHub{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+  <h2 class="mb-4">ThesisHub</h2>
+  <p><a class="btn btn-primary m-2" href="{{ url_for('student_login_get') }}">ورود دانشجو</a></p>
+  <p><a class="btn btn-primary m-2" href="{{ url_for('prof_login_get') }}">ورود استاد</a></p>
+  <p><a class="btn btn-primary m-2" href="{{ url_for('judge_login_get') }}">ورود داور</a></p>
+  <p><a class="btn btn-primary m-2" href="{{ url_for('admin_login_get') }}">ورود ادمین</a></p>
+</div>
+{% endblock %}

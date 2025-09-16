@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}ورود ادمین | ThesisHub{% endblock %}
+
+{% block extra_css %}
+<style>
+  .auth-wrap { min-height: 60vh; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center auth-wrap">
+  <div class="col-md-6 col-lg-5">
+    <div class="card p-4 p-md-5">
+      <h5 class="mb-3">ورود ادمین</h5>
+      <p class="text-muted small mb-4">
+        برای دسترسی به ابزارهای نگهداری (Seed/Health) نام‌کاربری و رمز مدیریت را وارد کنید.
+      </p>
+
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="{{ url_for('admin_login_post') }}" novalidate>
+        <div class="mb-3">
+          <label for="admin_user" class="form-label">نام‌کاربری</label>
+          <input id="admin_user" name="user" type="text" class="form-control" required placeholder="admin">
+        </div>
+        <div class="mb-3">
+          <label for="admin_pass" class="form-label">رمز عبور</label>
+          <input id="admin_pass" name="password" type="password" class="form-control" required placeholder="••••••••">
+        </div>
+        <div class="d-grid">
+          <button class="btn btn-dark" type="submit">ورود</button>
+        </div>
+      </form>
+
+      <div class="small mt-3 text-muted">
+        تنظیم از محیط: <code>ADMIN_USER</code> و <code>ADMIN_PASS</code> (پیش‌فرض: <code>admin</code>/<code>admin123</code>)
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

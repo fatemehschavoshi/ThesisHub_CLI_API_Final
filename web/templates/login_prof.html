@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}ورود استاد | ThesisHub{% endblock %}
+
+{% block extra_css %}
+<style>
+  .auth-wrap { min-height: 60vh; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center auth-wrap">
+  <div class="col-md-6 col-lg-5">
+    <div class="card p-4 p-md-5">
+      <h5 class="mb-3">ورود استاد</h5>
+      <p class="text-muted small mb-4">لطفاً کد استادی و رمز عبور خود را وارد کنید.</p>
+
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <!-- Login form -->
+      <form method="post" action="{{ url_for('prof_login_post') }}">
+        <div class="mb-3">
+          <label for="code" class="form-label">کد استادی</label>
+          <input
+            id="code"
+            name="code"
+            class="form-control"
+            required
+            autocomplete="username"
+            inputmode="latin"
+            placeholder="مثال: T2001">
+          <div class="form-text">فرمت پیشنهادی: T1234</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">رمز عبور</label>
+          <div class="input-group">
+            <input
+              id="password"
+              type="password"
+              name="password"
+              class="form-control"
+              required
+              autocomplete="current-password"
+              minlength="4"
+              placeholder="••••••••">
+            <button class="btn btn-outline-secondary" type="button" id="togglePwd" title="نمایش/مخفی کردن">👁️</button>
+          </div>
+          <div class="form-text">رمز عبور حداقل ۴ کاراکتر باشد.</div>
+        </div>
+
+        <!-- اختیاری: بک‌اند فعلاً استفاده نمی‌کند -->
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" value="1" id="remember" name="remember">
+          <label class="form-check-label" for="remember">مرا به خاطر بسپار</label>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-secondary">ورود</button>
+        </div>
+      </form>
+
+      <div class="d-flex justify-content-between mt-3 small">
+        <a class="text-decoration-none" href="{{ url_for('student_login_get') }}">ورود دانشجو</a>
+        <a class="text-decoration-none" href="{{ url_for('judge_login_get') }}">ورود داور</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function(){
+    const btn = document.getElementById('togglePwd');
+    const pwd = document.getElementById('password');
+    if (btn && pwd) {
+      btn.addEventListener('click', function(){
+        const t = pwd.getAttribute('type') === 'password' ? 'text' : 'password';
+        pwd.setAttribute('type', t);
+      });
+    }
+  })();
+</script>
+{% endblock %}

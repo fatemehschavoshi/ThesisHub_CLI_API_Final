@@ -1,0 +1,72 @@
+[
+  {
+    "student_code": "S1001",
+    "course_id": "C3001",
+    "title": "A Study on Deep Learning in NLP",
+    "year": 1404,
+    "semester": "اول",
+    "supervisor": "T2001",
+    "judges": {
+      "internal": "T2002",
+      "external": "T2003"
+    },
+    "scores": {
+      "supervisor": 18.5,
+      "internal": 17.0,
+      "external": 18.0
+    },
+    "score": 17.83,
+    "grade_letter": "A",
+    "result": "defense",
+    "files": {
+      "pdf": "files/thesis/S1001_C3001.pdf",
+      "cover": "files/images/S1001_C3001_cover.jpg",
+      "last": "files/images/S1001_C3001_last.jpg"
+    },
+    "keywords": [
+      "Deep Learning",
+      "NLP",
+      "Neural Networks"
+    ],
+    "summary": "این پایان‌نامه به بررسی کاربرد شبکه‌های عمیق در پردازش زبان طبیعی پرداخته و روش‌های نوین یادگیری توالی‌ها را تحلیل می‌کند.",
+    "attendees": [
+      "S1001",
+      "T2001",
+      "T2002",
+      "T2003"
+    ],
+    "finalized_at": "2025-08-28T12:00:00Z"
+  },
+  {
+    "student_code": "S9001",
+    "course_id": "C9001",
+    "title": "Demo: A Practical Study on ThesisHub",
+    "year": 1404,
+    "semester": "اول",
+    "supervisor": "T9101",
+    "judges": {
+      "internal": "T9102",
+      "external": "T9103"
+    },
+    "scores": {
+      "supervisor": 19.0,
+      "internal": 18.0,
+      "external": 17.5
+    },
+    "score": 18.17,
+    "grade_letter": "A",
+    "grade_letter_fa": "الف",
+    "attendees": [
+      "S9001",
+      "T9101",
+      "T9102",
+      "T9103"
+    ],
+    "files": {
+      "pdf": "F:\\ThesisHub_CLI_API_Final\\files\\thesis\\S9001_C9001.pdf",
+      "cover": "F:\\ThesisHub_CLI_API_Final\\files\\images\\S9001_C9001_cover.jpg",
+      "last": "F:\\ThesisHub_CLI_API_Final\\files\\images\\S9001_C9001_cover.jpg"
+    },
+    "finalized_at": "2025-09-16T18:08:55.860Z"
+  }
+]

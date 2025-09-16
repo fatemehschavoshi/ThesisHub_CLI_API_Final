@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Dr. Hosseini",
+    "teacher_code": "T2001",
+    "password_hash": "$2b$12$1B1b1VwIh3yq2G2o0C1BxOYw5m85V4iB1i9u3gP0Vq5M8ZsI9t6Oe",
+    "email": "hosseini@example.com",
+    "capacity_supervise": 5,
+    "capacity_judge": 10,
+    "roles": [
+      "supervisor",
+      "judge"
+    ],
+    "created_at": "2025-08-01T09:15:00Z",
+    "last_login": null,
+    "active": true
+  },
+  {
+    "name": "Dr. Farahani",
+    "teacher_code": "T2002",
+    "password_hash": "$2b$12$1B1b1VwIh3yq2G2o0C1BxOYw5m85V4iB1i9u3gP0Vq5M8ZsI9t6Oe",
+    "email": "farahani@example.com",
+    "capacity_supervise": 5,
+    "capacity_judge": 10,
+    "roles": [
+      "supervisor",
+      "judge"
+    ],
+    "created_at": "2025-08-01T09:30:00Z",
+    "last_login": null,
+    "active": true
+  },
+  {
+    "name": "Dr. Rahimi",
+    "teacher_code": "T2003",
+    "password_hash": "$2b$12$1B1b1VwIh3yq2G2o0C1BxOYw5m85V4iB1i9u3gP0Vq5M8ZsI9t6Oe",
+    "email": "rahimi@example.com",
+    "capacity_supervise": 5,
+    "capacity_judge": 10,
+    "roles": [
+      "supervisor",
+      "judge"
+    ],
+    "created_at": "2025-08-01T09:45:00Z",
+    "last_login": null,
+    "active": true
+  },
+  {
+    "name": "Dr. Demo Supervisor",
+    "teacher_code": "T9101",
+    "password_hash": "$2b$12$PnxIYyVFiRnyU7Vq7a7dae1WSv3XMgE/vDjBuReWmp44x89B2oqTG",
+    "email": "sup@example.com",
+    "capacity_supervise": 5,
+    "capacity_judge": 10,
+    "created_at": "2025-09-16T13:07:31.994Z",
+    "active": true
+  },
+  {
+    "name": "Dr. Demo Internal",
+    "teacher_code": "T9102",
+    "password_hash": "$2b$12$qd8kNl0vP4Aab44khMVLYOWl9zj05vTdm2t8lSFVqmWTXOM3UhP9a",
+    "email": "int@example.com",
+    "capacity_supervise": 5,
+    "capacity_judge": 10,
+    "created_at": "2025-09-16T13:07:32.408Z",
+    "active": true
+  },
+  {
+    "name": "Dr. Demo External",
+    "teacher_code": "T9103",
+    "password_hash": "$2b$12$fQs6iCJzHXLj0D.iChmA5Oyk3pGYZjBSQyW4UNawO8qPZ3IMxA5dm",
+    "email": "ext@example.com",
+    "capacity_supervise": 5,
+    "capacity_judge": 10,
+    "created_at": "2025-09-16T13:07:32.773Z",
+    "active": true
+  }
+]

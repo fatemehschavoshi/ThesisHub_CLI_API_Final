@@ -1,0 +1,136 @@
+[
+  {
+    "student_code": "S1001",
+    "course_id": "C3001",
+    "request_date": "2025-08-01",
+    "approval_date": null,
+    "status": "pending",
+    "supervisor": "T2001",
+    "judges": {
+      "internal": null,
+      "external": null
+    },
+    "title": "",
+    "abstract": "",
+    "keywords": [],
+    "defense_request_date": null,
+    "defense_date": null,
+    "scores": {
+      "supervisor": null,
+      "internal": null,
+      "external": null
+    },
+    "files": {
+      "pdf": null,
+      "cover": null,
+      "last": null
+    },
+    "ocr_validation": null
+  },
+  {
+    "student_code": "S1002",
+    "course_id": "C3002",
+    "request_date": "2025-08-02",
+    "approval_date": null,
+    "status": "pending",
+    "supervisor": "T2002",
+    "judges": {
+      "internal": null,
+      "external": null
+    },
+    "title": "",
+    "abstract": "",
+    "keywords": [],
+    "defense_request_date": null,
+    "defense_date": null,
+    "scores": {
+      "supervisor": null,
+      "internal": null,
+      "external": null
+    },
+    "files": {
+      "pdf": null,
+      "cover": null,
+      "last": null
+    },
+    "ocr_validation": null
+  },
+  {
+    "student_code": "S1003",
+    "course_id": "C3003",
+    "request_date": "2025-08-03",
+    "approval_date": null,
+    "status": "pending",
+    "supervisor": "T2003",
+    "judges": {
+      "internal": null,
+      "external": null
+    },
+    "title": "",
+    "abstract": "",
+    "keywords": [],
+    "defense_request_date": null,
+    "defense_date": null,
+    "scores": {
+      "supervisor": null,
+      "internal": null,
+      "external": null
+    },
+    "files": {
+      "pdf": null,
+      "cover": null,
+      "last": null
+    },
+    "ocr_validation": null
+  },
+  {
+    "student_code": "S9001",
+    "course_id": "C9001",
+    "request_date": "2025-05-29",
+    "approval_date": "2025-06-08",
+    "status": "defense",
+    "supervisor": "T9101",
+    "judges": {
+      "internal": "T9102",
+      "external": "T9103"
+    },
+    "title": "Demo: A Practical Study on ThesisHub",
+    "abstract": "",
+    "keywords": [],
+    "defense_request_date": "2025-09-16",
+    "defense_date": "2025-09-16",
+    "scores": {
+      "internal": 18.0,
+      "external": 17.5,
+      "supervisor": 19.0
+    },
+    "files": {
+      "pdf": "F:\\ThesisHub_CLI_API_Final\\files\\thesis\\S9001_C9001.pdf",
+      "cover": "F:\\ThesisHub_CLI_API_Final\\files\\images\\S9001_C9001_cover.jpg",
+      "last": "F:\\ThesisHub_CLI_API_Final\\files\\images\\S9001_C9001_cover.jpg",
+      "hashes": {
+        "pdf": "eadef7418e14af08d4dab416d408d94121199f49e60eed1caa7a6bec3b16ebe0",
+        "cover": "32461d5bd1773012acef0ba15636752949bd7c2ce50f9172159d9f56cf0dd9af",
+        "last": "32461d5bd1773012acef0ba15636752949bd7c2ce50f9172159d9f56cf0dd9af"
+      },
+      "meta": {
+        "pdf": {
+          "mime": "application/pdf",
+          "size": 177902,
+          "signature_ok": true
+        },
+        "cover": {
+          "mime": "image/jpeg",
+          "size": 78638,
+          "signature_ok": true
+        },
+        "last": {
+          "mime": "image/jpeg",
+          "size": 78638,
+          "signature_ok": true
+        }
+      }
+    },
+    "ocr_validation": null
+  }
+]
